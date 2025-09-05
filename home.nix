@@ -24,7 +24,14 @@
         userName = "sudhanshunitinatalkar";
         userEmail = "atalkarsudhanshu@oroton.me";
     };
-  
 
+    programs.bash = 
+    {
+        enable = true;
+        shellAliases = 
+        {
+            nrs = "nixos-rebuild switch --flake ~/nixos-cosmos-config#cosmos";
+        };
+    };
 
 }
