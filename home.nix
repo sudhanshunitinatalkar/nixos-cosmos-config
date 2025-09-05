@@ -28,10 +28,18 @@
     programs.bash = 
     {
         enable = true;
-        shellAliases = 
-        {
-            nrs = "nixos-rebuild switch --flake ~/nixos-cosmos-config#cosmos";
-        };
+        initExtra = 
+        ''
+           nrs()
+           {
+                cd ~/nixos-cosmos-config || return
+                git pull --rebase origin main
+                git add .
+                git commit -m "config update: $(date "+%Y-%m-%d %H:%M:%S")"
+                git push origin main
+                sudo nixos-rebuild switch --flake .#cosmos 
+            }  
+        '';
     };
 
 }
